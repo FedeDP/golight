@@ -14,16 +14,6 @@ import (
 	"github.com/FedeDP/golight/upower"
 )
 
-/*
-TODO:
- * Move Clightd wrapper to its own external module
- * Fix: only start gamma once a first location has been received
- * Pass by pointer where needed
- * Fix memleaks (?)
- * Implement conf parsing (https://github.com/spf13/viper)
- * Implement dbus server exposing state
- */
-
 func main() {
 	locC := location.Subscribe()
 	gammaC := gamma.Subscribe() // gamma
