@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/FedeDP/golight/idler"
 	"github.com/godbus/dbus/v5"
-	"github.com/FedeDP/golight/clightd"
+	"github.com/FedeDP/go-clightd"
 	"github.com/FedeDP/golight/conf"
 	"github.com/FedeDP/golight/state"
 )

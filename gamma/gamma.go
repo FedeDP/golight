@@ -2,7 +2,7 @@ package gamma
 
 import (
 	"fmt"
-	"github.com/FedeDP/golight/clightd"
+	"github.com/FedeDP/go-clightd"
 	"github.com/FedeDP/golight/conf"
 	"github.com/FedeDP/golight/state"
 	"github.com/kelvins/sunrisesunset"

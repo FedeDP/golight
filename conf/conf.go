@@ -1,7 +1,7 @@
 package conf
 
 import (
-	"github.com/FedeDP/golight/clightd"
+	"github.com/FedeDP/go-clightd"
 	"github.com/FedeDP/golight/state"
 )
 

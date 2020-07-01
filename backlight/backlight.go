@@ -3,7 +3,7 @@ package backlight
 import (
 	"fmt"
 	"github.com/godbus/dbus/v5"
-	"github.com/FedeDP/golight/clightd"
+	"github.com/FedeDP/go-clightd"
 	"github.com/FedeDP/golight/conf"
 	"github.com/FedeDP/golight/state"
 	"gonum.org/v1/gonum/stat"

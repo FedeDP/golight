@@ -3,7 +3,7 @@
 ### Fixes and architectural improvements
 - [x] Drop any Conf reference from clightd wrapper
 - [x] Rework Clightd/Idle wrapper to only wrap calls
-- [ ] Move Clightd wrapper to its own external module
+- [x] Move Clightd wrapper to its own external module
 - [x] Fix: only start gamma once a first location has been received
 - [x] Fix: gamma sunrise/sunset times are off by a couple of hours (UTC delta)
 - [x] Support multiple ac states
