@@ -12,11 +12,12 @@ import (
 	"github.com/FedeDP/golight/signals"
 	"github.com/FedeDP/golight/state"
 	"github.com/FedeDP/golight/upower"
+	"time"
 )
 
 func main() {
+	var gammaC <-chan time.Time
 	locC := location.Subscribe()
-	gammaC := gamma.Subscribe() // gamma
 	sigC := signals.Subscribe() // signal handler
 	dayC := day.Subscribe() // just after midnight to compute next day events
 	captureC := capture.Subscribe()
@@ -34,16 +35,18 @@ func main() {
 	defer dimmer.Close()
 	defer dpms.Close()
 
-	/* Init */
-	go gamma.Update()
-	go capture.Update(blC)
+	capture.Update(blC)
 
 	quit := false
 	for !quit {
 		select {
 		case v := <-locC:
 			location.Update(v)
+			firstLoc := state.NextSunrise.IsZero()
 			gammaC = gamma.Subscribe() // update timer to next event
+			if firstLoc {
+				gamma.Update()
+			}
 
 		case <-gammaC:
 			gammaC = gamma.Subscribe() // update timer to next event
@@ -62,7 +65,17 @@ func main() {
 			backlight.Update(c)
 
 		case <-upC:
-			upower.Update()
+			if ok, _ := upower.Update(); ok {
+                if state.Ac == state.OnBatt {
+                    fmt.Println("Current AC state: on Batt.")
+                } else {
+                    fmt.Println("Current AC state: on AC.")
+                }
+				/* On new upower state, update all timers */
+				dimmer.UpdateTimer()
+				dpms.UpdateTimer()
+				captureC = capture.Subscribe()
+			}
 
 		case d := <-dimC:
 			dimmer.Update(d)

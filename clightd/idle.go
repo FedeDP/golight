@@ -18,17 +18,15 @@ const (
 	idlePropClientTimeout	= idleClientInterface + ".Timeout"
 )
 
-type IdleApi interface {
+type IdleClientApi interface {
 	ClightdApi
-	Subscribe() chan *dbus.Signal
-	Update(v *dbus.Signal) bool
+	Subscribe(c chan *dbus.Signal)
 	SetTimeout(timeout uint) error
 	Start() error
 	Stop() error
-	Reset() error
 }
 
-func NewIdleApi() (IdleApi, error) {
+func NewIdleClientApi() (IdleClientApi, error) {
 	var cl api
 	cl.dtor = dtor
 	cl.conn, _ = dbus.ConnectSystemBus()
@@ -46,15 +44,9 @@ func NewIdleApi() (IdleApi, error) {
 	return cl, nil
 }
 
-func (api api) Subscribe() chan *dbus.Signal {
+func (api api) Subscribe(c chan *dbus.Signal) {
 	api.obj.AddMatchSignal(idleInterface, "Idle", dbus.WithMatchObjectPath(api.obj.Path()))
-	c := make(chan *dbus.Signal, 10)
 	api.conn.Signal(c)
-	return c
-}
-
-func (api api) Update(v *dbus.Signal) bool {
-	return v.Body[0].(bool)
 }
 
 func (api api) SetTimeout(timeout uint) error {
@@ -72,14 +64,6 @@ func (api api) Start() error {
 func (api api) Stop() error {
 	call := api.obj.Call(idleMethodStopClient, 0)
 	return call.Err
-}
-
-func (api api) Reset() error {
-	err := api.Stop()
-	if err != nil {
-		return err
-	}
-	return api.Start()
 }
 
 func dtor(api api) error {

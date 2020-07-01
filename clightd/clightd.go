@@ -13,6 +13,7 @@ var(
 )
 
 type ClightdApi interface {
+	String() string
 	Destroy() error
 }
 
@@ -22,6 +23,10 @@ type api struct {
 	conn 	*dbus.Conn
 	obj  	dbus.BusObject
 	dtor	ApiDtor
+}
+
+func (api api) String() string {
+	return fmt.Sprintf("Clightd %s object.", api.obj.Path())
 }
 
 func (api api) Destroy() error {
@@ -35,8 +40,8 @@ func init() {
 	fmt.Printf("Environment:\n\tXDisplay -> %s\n\tXauth -> %s\n", xdisplay, xauth)
 }
 
-func initialize(path string) (api, error) {
-	var api api
+func initialize(path string) (*api, error) {
+	var api = new(api)
 	var err error
 	api.dtor = nil
 	api.conn, err = dbus.ConnectSystemBus()

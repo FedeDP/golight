@@ -26,12 +26,6 @@ func Subscribe() <-chan *dbus.Signal {
 	_ = gcl.SetDistanceThreshold(50000) // 50km
 	_ = gcl.Start()
 
-	state.Location, err = gcl.GetLocation()
-	if err != nil {
-		panic(err)
-	}
-	logLoc()
-
 	return gcl.SubscribeLocationUpdated()
 }
 

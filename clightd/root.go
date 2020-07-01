@@ -8,20 +8,18 @@ const (
 	clightdPropVersion        = clightdInterface + ".Version"
 )
 
-type Api interface {
+type Root interface {
 	Version() (string, error)
 }
 
-func NewApi() (Api, error) {
+func NewRoot() (Root, error) {
 	return initialize(clightdObjectPath)
 }
 
-func (api api) Version() (string, error) {
+func (api api) Version() (version string, err error) {
 	prop, err := api.obj.GetProperty(clightdPropVersion)
-	if err != nil {
-		return "", err
+	if err == nil {
+		err = prop.Store(version)
 	}
-	var version string
-	err = prop.Store(version)
-	return version, err
+	return
 }

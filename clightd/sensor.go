@@ -41,16 +41,13 @@ func (api api) GoCapture(blC chan *dbus.Call, ncaptures int32) error {
 	return call.Err
 }
 
-func (api api) Capture(ncaptures int32) ([]float64, error) {
+func (api api) Capture(ncaptures int32) (values []float64, err error) {
 	call := api.obj.Call(sensMethodCapture,0, "", ncaptures, "")
 	if call.Err != nil {
-		return nil, call.Err
+		err = call.Err
+	} else {
+		var Sensor string
+		err = call.Store(&Sensor, &values)
 	}
-	var Sensor string
-	var Val []float64
-	err := call.Store(&Sensor, &Val)
-	if err != nil {
-		return nil, err
-	}
-	return Val, err
+	return
 }

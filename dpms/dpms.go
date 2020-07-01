@@ -2,45 +2,36 @@ package dpms
 
 import (
 	"fmt"
+	"github.com/FedeDP/golight/idler"
 	"github.com/godbus/dbus/v5"
 	"github.com/FedeDP/golight/clightd"
 	"github.com/FedeDP/golight/conf"
 	"github.com/FedeDP/golight/state"
 )
 
-var api, _ = clightd.NewIdleApi()
+var api, _ = clightd.NewIdleClientApi()
 var dpmsApi, _ = clightd.NewDpmsApi()
 
 func Subscribe() chan *dbus.Signal {
-	c := api.Subscribe()
-	err := api.SetTimeout(conf.DpmsTO)
-	if err != nil {
-		panic(err)
-	}
-	err = api.Start()
-	if err != nil {
-		panic(err)
-	}
-	return c
+	return idler.Subscribe(api, conf.DpmsTO[state.Ac])
+}
+
+func UpdateTimer() {
+	_ = api.SetTimeout(conf.DimmerTO[state.Ac])
 }
 
 func Update(v *dbus.Signal) {
-	if api.Update(v) {
+	if idler.Update(v, state.DisplayOFF) {
 		fmt.Println("Entering DPMS state.")
-		state.DisplaySet(state.DisplayOFF)
 		setDpms(1)
 	} else {
 		fmt.Println("Leaving DPMS state.")
-		state.DisplayClear(state.DisplayOFF)
 		setDpms(0)
 	}
 }
 
 func Close() {
-	err := api.Destroy()
-	if err != nil {
-		fmt.Println(err)
-	}
+	idler.Close(api)
 	_ = dpmsApi.Destroy()
 }
 

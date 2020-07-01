@@ -31,12 +31,12 @@ func (api api) GoGetEmitted(ch chan *dbus.Call) error {
 	return call.Err
 }
 
-func (api api) GetEmitted() (float64, error) {
+func (api api) GetEmitted() (emittedBr float64, err error) {
 	call := api.obj.Call(screenMethodGetEmitted,0, xdisplay, xauth)
 	if call.Err != nil {
-		return 0, call.Err
+		err = call.Err
+	} else {
+		err = call.Store(&emittedBr)
 	}
-	var val float64
-	err := call.Store(&val)
-	return val, err
+	return
 }

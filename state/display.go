@@ -2,7 +2,7 @@ package state
 
 type DisplayState uint8 // [ 0, 1, 2 ] -> bitmask (i want DisplayON to be 0)
 const(
-	DisplayON 		= iota
+	DisplayON DisplayState		= iota
 	DisplayDIM
 	DisplayOFF
 )

@@ -28,8 +28,7 @@ func Update(c *dbus.Call) {
 }
 
 func Set(val float64) {
-	err := api.GoSetAll(val, &conf.BSmooth, nil)
-	if err != nil {
+	if	err := api.GoSetAll(val, &conf.BSmooth, nil); err != nil {
 		fmt.Println(err)
 	} else {
 		fmt.Printf("Set %.2f backlight level.\n", val)
@@ -40,8 +39,7 @@ func Set(val float64) {
 func computeAmbBr(call *dbus.Call) {
 	var Sensor string
 	var Val []float64
-	err := call.Store(&Sensor, &Val)
-	if err != nil {
+	if err := call.Store(&Sensor, &Val); err != nil {
 		fmt.Println(err.Error())
 	} else {
 		state.AmbBr = stat.Mean(Val, nil)
@@ -54,8 +52,7 @@ func computeNextBl() float64 {
 }
 
 func Close() {
-	err := api.Destroy()
-	if err != nil {
+	if err := api.Destroy(); err != nil {
 		fmt.Println(err)
 	}
 }
