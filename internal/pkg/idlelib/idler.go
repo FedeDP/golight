@@ -2,14 +2,13 @@ package idler
 
 import (
 	"fmt"
-	"github.com/FedeDP/go-clightd"
-	"github.com/FedeDP/golight/state"
+	"github.com/FedeDP/golight/pkg/go-clightd"
 	"github.com/godbus/dbus/v5"
 )
 
 func Subscribe(api clightd.IdleClientApi, timeout uint) (c chan *dbus.Signal) {
 	c = make(chan *dbus.Signal, 10)
-	api.Subscribe(c)
+	api.SubscribeIdle(c)
 
 	if err := api.SetTimeout(timeout); err != nil {
 		panic(err)
@@ -21,13 +20,8 @@ func Subscribe(api clightd.IdleClientApi, timeout uint) (c chan *dbus.Signal) {
 	return
 }
 
-func Update(v *dbus.Signal, bit state.DisplayState) bool {
-	if v.Body[0].(bool) {
-		state.DisplaySet(bit)
-		return true
-	}
-	state.DisplayClear(bit)
-	return false
+func Update(api clightd.IdleClientApi, v *dbus.Signal) bool {
+	return api.ParseIdle(v)
 }
 
 func Close(api clightd.IdleClientApi) {
