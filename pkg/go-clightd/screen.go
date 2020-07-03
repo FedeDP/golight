@@ -6,10 +6,10 @@ import (
 
 /** Screen API object **/
 const (
-	screenInterface         = "org.clightd.clightd.Screen"
-	screenObjectPath        = "/org/clightd/clightd/Screen"
+	screenInterface  = "org.clightd.clightd.Screen"
+	screenObjectPath = "/org/clightd/clightd/Screen"
 
-	screenMethodGetEmitted  = screenInterface + ".GetEmittedBrightness"
+	screenMethodGetEmitted = screenInterface + ".GetEmittedBrightness"
 )
 
 type ScreenApi interface {
@@ -27,12 +27,12 @@ func NewScreenApi() (ScreenApi, error) {
 }
 
 func (api api) GoGetEmitted(ch chan *dbus.Call) error {
-	call := api.obj.Go(screenMethodGetEmitted,0, ch, xdisplay, xauth)
+	call := api.obj.Go(screenMethodGetEmitted, 0, ch, xdisplay, xauth)
 	return call.Err
 }
 
 func (api api) GetEmitted() (emittedBr float64, err error) {
-	call := api.obj.Call(screenMethodGetEmitted,0, xdisplay, xauth)
+	call := api.obj.Call(screenMethodGetEmitted, 0, xdisplay, xauth)
 	if call.Err != nil {
 		err = call.Err
 	} else {

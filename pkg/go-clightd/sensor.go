@@ -7,19 +7,20 @@ import (
 
 /** Sensor API object **/
 const (
-	sensInterface         = "org.clightd.clightd.Sensor"
-	sensObjectPath        = "/org/clightd/clightd/Sensor"
+	sensInterface  = "org.clightd.clightd.Sensor"
+	sensObjectPath = "/org/clightd/clightd/Sensor"
 
-	sensMethodCapture     = sensInterface + ".Capture"
-	sensMethodAvailable   = sensInterface + ".IsAvailable"
+	sensMethodCapture   = sensInterface + ".Capture"
+	sensMethodAvailable = sensInterface + ".IsAvailable"
 )
 
 type SensType string
-const(
-	SensAny SensType 	= ""
-	SensCamera 			= "/Camera"
-	SensAls 			= "/Als"
-	SensCustom 			= "/Custom"
+
+const (
+	SensAny    SensType = ""
+	SensCamera          = "/Camera"
+	SensAls             = "/Als"
+	SensCustom          = "/Custom"
 )
 
 type SensorApi interface {
@@ -44,12 +45,12 @@ func NewSensorApi(sensType SensType) (SensorApi, error) {
 }
 
 func (api api) GoCapture(blC chan *dbus.Call, sens string, ncaptures int32, sensOpts string) error {
-	call := api.obj.Go(sensMethodCapture,0, blC, sens, ncaptures, sensOpts)
+	call := api.obj.Go(sensMethodCapture, 0, blC, sens, ncaptures, sensOpts)
 	return call.Err
 }
 
 func (api api) Capture(sens string, ncaptures int32, sensOpts string) (foundSens string, values []float64, err error) {
-	call := api.obj.Call(sensMethodCapture,0, sens, ncaptures, sensOpts)
+	call := api.obj.Call(sensMethodCapture, 0, sens, ncaptures, sensOpts)
 	if call.Err != nil {
 		err = call.Err
 	} else {
@@ -59,12 +60,12 @@ func (api api) Capture(sens string, ncaptures int32, sensOpts string) (foundSens
 }
 
 func (api api) GoIsAvailable(blC chan *dbus.Call, sens string) error {
-	call := api.obj.Go(sensMethodAvailable,0, blC, sens)
+	call := api.obj.Go(sensMethodAvailable, 0, blC, sens)
 	return call.Err
 }
 
 func (api api) IsAvailable(sens string) (foundSens string, ok bool, err error) {
-	call := api.obj.Call(sensMethodAvailable,0, sens)
+	call := api.obj.Call(sensMethodAvailable, 0, sens)
 	if call.Err != nil {
 		err = call.Err
 	} else {

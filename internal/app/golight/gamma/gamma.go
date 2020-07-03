@@ -52,11 +52,11 @@ func next() {
 	}
 
 	t := time.Now()
-	p := sunrisesunset.Parameters {
-		Latitude: 	latitude,
-		Longitude: 	longitude,
-		UtcOffset: 	0,
-		Date:      	t,
+	p := sunrisesunset.Parameters{
+		Latitude:  latitude,
+		Longitude: longitude,
+		UtcOffset: 0,
+		Date:      t,
 	}
 
 	state.NextSunrise, state.NextSunset, err = p.GetSunriseSunset()
@@ -65,6 +65,6 @@ func next() {
 	}
 
 	/* Library does not use today */
-	state.NextSunrise = state.NextSunrise.AddDate(t.Year() - 1, int(t.Month()) - 1, t.Day() - 1)
-	state.NextSunset = state.NextSunset.AddDate(t.Year() - 1, int(t.Month()) - 1, t.Day() - 1)
+	state.NextSunrise = state.NextSunrise.AddDate(t.Year()-1, int(t.Month())-1, t.Day()-1)
+	state.NextSunset = state.NextSunset.AddDate(t.Year()-1, int(t.Month())-1, t.Day()-1)
 }

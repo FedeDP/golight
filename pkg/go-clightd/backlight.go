@@ -5,30 +5,30 @@ import (
 )
 
 type BacklightSmooth struct {
-	Smooth 	bool
-	Step  	float64
-	Timeout	uint32
+	Smooth  bool
+	Step    float64
+	Timeout uint32
 }
 
 /** Backlight API object **/
 const (
-	backlightInterface         	= "org.clightd.clightd.Backlight"
-	backlightObjectPath        	= "/org/clightd/clightd/Backlight"
+	backlightInterface  = "org.clightd.clightd.Backlight"
+	backlightObjectPath = "/org/clightd/clightd/Backlight"
 
-	backlightMethodSetAll      	= backlightInterface + ".SetAll"
-	backlightMethodRaiseAll    	= backlightInterface + ".RaiseAll"
-	backlightMethodLowerAll    	= backlightInterface + ".LowerAll"
-	backlightMethodGetAll      	= backlightInterface + ".GetAll"
+	backlightMethodSetAll   = backlightInterface + ".SetAll"
+	backlightMethodRaiseAll = backlightInterface + ".RaiseAll"
+	backlightMethodLowerAll = backlightInterface + ".LowerAll"
+	backlightMethodGetAll   = backlightInterface + ".GetAll"
 
-	backlightMethodSet     	 	= backlightInterface + ".Set"
-	backlightMethodRaise    	= backlightInterface + ".Raise"
-	backlightMethodLower    	= backlightInterface + ".Lower"
-	backlightMethodGet      	= backlightInterface + ".Get"
+	backlightMethodSet   = backlightInterface + ".Set"
+	backlightMethodRaise = backlightInterface + ".Raise"
+	backlightMethodLower = backlightInterface + ".Lower"
+	backlightMethodGet   = backlightInterface + ".Get"
 )
 
 type BacklightStruct struct {
-	serialNumber 	string
-	level			float64
+	serialNumber string
+	level        float64
 }
 
 type BacklightApi interface {

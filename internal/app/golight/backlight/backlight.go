@@ -28,7 +28,7 @@ func Update(c *dbus.Call) {
 }
 
 func Set(val float64) {
-	if	err := api.GoSetAll(val, &conf.BSmooth, "",nil); err != nil {
+	if err := api.GoSetAll(val, &conf.BSmooth, "", nil); err != nil {
 		fmt.Println(err)
 	} else {
 		fmt.Printf("Set %.2f backlight level.\n", val)
@@ -48,7 +48,7 @@ func computeAmbBr(call *dbus.Call) {
 }
 
 func computeNextBl() float64 {
-	return math.Min(BlFitParams[0] * (state.AmbBr * 10) + BlFitParams[1], 1)
+	return math.Min(BlFitParams[0]*(state.AmbBr*10)+BlFitParams[1], 1)
 }
 
 func Close() {

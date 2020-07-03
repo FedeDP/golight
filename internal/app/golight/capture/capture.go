@@ -11,7 +11,7 @@ import (
 
 var api, _ = clightd.NewSensorApi(clightd.SensAny)
 
-func Subscribe() <- chan time.Time {
+func Subscribe() <-chan time.Time {
 	m := time.Duration(conf.CaptureTO[state.Ac]) * time.Second
 	return time.Tick(m)
 }

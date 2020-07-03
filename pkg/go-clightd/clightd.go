@@ -7,9 +7,9 @@ import (
 	"os"
 )
 
-var(
-	xauth						string = os.Getenv("XAUTHORITY")
-	xdisplay					string = os.Getenv("DISPLAY")
+var (
+	xauth    string = os.Getenv("XAUTHORITY")
+	xdisplay string = os.Getenv("DISPLAY")
 )
 
 type ClightdApi interface {
@@ -20,9 +20,9 @@ type ClightdApi interface {
 type ApiDtor func(api api) error
 
 type api struct {
-	conn 	*dbus.Conn
-	obj  	dbus.BusObject
-	dtor	ApiDtor
+	conn *dbus.Conn
+	obj  dbus.BusObject
+	dtor ApiDtor
 }
 
 func (api api) String() string {

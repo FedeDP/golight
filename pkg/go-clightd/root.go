@@ -2,10 +2,10 @@ package clightd
 
 /** Main API object **/
 const (
-	clightdInterface         = "org.clightd.clightd"
-	clightdObjectPath        = "/org/clightd/clightd"
+	clightdInterface  = "org.clightd.clightd"
+	clightdObjectPath = "/org/clightd/clightd"
 
-	clightdPropVersion        = clightdInterface + ".Version"
+	clightdPropVersion = clightdInterface + ".Version"
 )
 
 type Root interface {

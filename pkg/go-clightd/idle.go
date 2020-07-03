@@ -6,16 +6,16 @@ import (
 
 /** Idle API object **/
 const (
-	idleInterface         	= "org.clightd.clightd.Idle"
-	idleObjectPath        	= "/org/clightd/clightd/Idle"
-	idleClientInterface	  	= idleInterface + ".Client"
+	idleInterface       = "org.clightd.clightd.Idle"
+	idleObjectPath      = "/org/clightd/clightd/Idle"
+	idleClientInterface = idleInterface + ".Client"
 
 	idleMethodGetClient     = idleInterface + ".GetClient"
 	idleMethodDestroyClient = idleInterface + ".DestroyClient"
 
-	idleMethodStartClient	= idleClientInterface + ".Start"
-	idleMethodStopClient	= idleClientInterface + ".Stop"
-	idlePropClientTimeout	= idleClientInterface + ".Timeout"
+	idleMethodStartClient = idleClientInterface + ".Start"
+	idleMethodStopClient  = idleClientInterface + ".Stop"
+	idlePropClientTimeout = idleClientInterface + ".Timeout"
 )
 
 type IdleClientApi interface {
